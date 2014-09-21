@@ -1,7 +1,6 @@
 package com.ja.yuml.render.remote;
 
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,12 +23,11 @@ import org.apache.commons.lang3.StringUtils;
 @NoArgsConstructor
 @AllArgsConstructor
 @Slf4j
-public class RemoteRenderer {
+public class YumlRemoteRenderer {
 
 	private String baseUrl = "http://yuml.me";
 
-	public String createUrl(String model, Style style, Direction direction)
-			throws MalformedURLException {
+	public String createUrl(String model, Style style, Direction direction) {
 		String dsl = prepareDsl(model);
 		return String.format("%s/diagram/%s;dir:%s/class/%s", baseUrl,
 				style.toString(), direction.getValue(), dsl);

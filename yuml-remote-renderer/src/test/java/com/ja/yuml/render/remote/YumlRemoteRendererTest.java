@@ -11,11 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 @Slf4j
-public class RemoteRendererTest {
+public class YumlRemoteRendererTest {
 
 	@Test
 	public void testRender() {
-		RemoteRenderer renderer = new RemoteRenderer();
+		YumlRemoteRenderer renderer = new YumlRemoteRenderer();
 		String model = "[foo]^-[bar]\n" + "[foo]^-[tar]";
 
 		YumlImage actual = renderer.render(model, Style.scruffy,
@@ -28,7 +28,7 @@ public class RemoteRendererTest {
 
 	@Test
 	public void testCreateDirectUrl() throws MalformedURLException {
-		RemoteRenderer renderer = new RemoteRenderer();
+		YumlRemoteRenderer renderer = new YumlRemoteRenderer();
 		String model = "[foo]^-[bar]\n" + "[foo]^-[tar]";
 
 		String actual = renderer.createUrl(model, Style.scruffy,
