@@ -30,7 +30,7 @@ public class YumlRemoteRenderer {
 	public String createUrl(String model, Style style, Direction direction) {
 		String dsl = prepareDsl(model);
 		return String.format("%s/diagram/%s;dir:%s/class/%s", baseUrl,
-				style.toYuml(), direction.getValue(), dsl);
+				style.toYuml(), direction.toYuml(), dsl);
 
 	}
 
@@ -54,7 +54,7 @@ public class YumlRemoteRenderer {
 	public YumlImage render(String model, Style style, Direction direction) {
 		try {
 			String url = String.format("%s/diagram/%s;dir:%s/class/", baseUrl,
-					style.toYuml(), direction.getValue());
+					style.toYuml(), direction.toYuml());
 			HttpClient client = new HttpClient();
 			String proxyHost = System.getProperty("http.proxyHost");
 			String proxyPort = System.getProperty("http.proxyPort");

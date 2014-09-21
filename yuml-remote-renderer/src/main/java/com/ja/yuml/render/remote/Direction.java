@@ -4,13 +4,13 @@ public enum Direction {
 
 	topDown("TB"), leftToRight("LR"), rightToLeft("RL");
 
-	private String value;
+	private String yuml;
 
-	private Direction(String value) {
-		this.value = value;
+	private Direction(String yuml) {
+		this.yuml = yuml;
 	}
 	
-	public String getValue() {
-		return value;
+	public String toYuml() {
+		return yuml;
 	}
 }
