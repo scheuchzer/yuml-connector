@@ -28,9 +28,13 @@ public class YumlRemoteRenderer {
 	private String baseUrl = "http://yuml.me";
 
 	public String createUrl(String model, Style style, Direction direction) {
+		return createUrl(model, DiagramType.detect(model), style, direction);
+	}
+
+	public String createUrl(String model, DiagramType diagramType,  Style style, Direction direction) {
 		String dsl = prepareDsl(model);
-		return String.format("%s/diagram/%s;dir:%s/class/%s", baseUrl,
-				style.toYuml(), direction.toYuml(), dsl);
+		return String.format("%s/diagram/%s;dir:%s/%s/%s", baseUrl,
+				style.toYuml(), direction.toYuml(), diagramType.toYumlName(), dsl);
 
 	}
 

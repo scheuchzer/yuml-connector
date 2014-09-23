@@ -17,12 +17,14 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.io.IOUtils;
 import org.junit.Rule;
 import org.junit.Test;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-
+@Slf4j
 public class HttpClientYumlAccessorTest {
 
 	private final int port = 40000;
@@ -61,13 +63,50 @@ public class HttpClientYumlAccessorTest {
 	}
 
 	@Test
-	public void testPostAndGetRealBackend() throws Exception {
+	public void testPostAndGetRealBackendClass() throws Exception {
 		HttpClientYumlAccessor client = new HttpClientYumlAccessor();
 		client.init(new HashMap<String, String>());
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put("dsl_text", "[foo].svg");
 		String actualName = client.post("http://yuml.me/diagram/scruffy/class",
 				parameters);
+		log.info("actualName={}", actualName);
+		assertThat(actualName, endsWith(".svg"));
+
+		InputStream actual = client.getData(String.format("http://yuml.me/%s",
+				actualName));
+		String actualData = IOUtils.toString(actual);
+		assertThat(actualData, containsString("<svg "));
+		assertThat(actualData, containsString("</svg>"));
+	}
+	
+	@Test
+	public void testPostAndGetRealBackendActivity() throws Exception {
+		HttpClientYumlAccessor client = new HttpClientYumlAccessor();
+		client.init(new HashMap<String, String>());
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("dsl_text", "(start)->(Boil Kettle)->(end).svg");
+		String actualName = client.post("http://yuml.me/diagram/scruffy/activity",
+				parameters);
+		log.info("actualName={}", actualName);
+		assertThat(actualName, endsWith(".svg"));
+
+		InputStream actual = client.getData(String.format("http://yuml.me/%s",
+				actualName));
+		String actualData = IOUtils.toString(actual);
+		assertThat(actualData, containsString("<svg "));
+		assertThat(actualData, containsString("</svg>"));
+	}
+	
+	@Test
+	public void testPostAndGetRealBackendUseCase() throws Exception {
+		HttpClientYumlAccessor client = new HttpClientYumlAccessor();
+		client.init(new HashMap<String, String>());
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("dsl_text", "[Customer]-(Login).svg");
+		String actualName = client.post("http://yuml.me/diagram/scruffy/usecase",
+				parameters);
+		log.info("actualName={}", actualName);
 		assertThat(actualName, endsWith(".svg"));
 
 		InputStream actual = client.getData(String.format("http://yuml.me/%s",
