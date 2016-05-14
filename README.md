@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/scheuchzer/yuml-connector.svg?branch=master)](https://travis-ci.org/scheuchzer/yuml-connector)
+
 yuml-connector
 ==============
 
